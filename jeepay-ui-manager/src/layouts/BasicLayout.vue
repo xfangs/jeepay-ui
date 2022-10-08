@@ -16,10 +16,12 @@
     -->
     <template v-slot:menuHeaderRender>
       <div>
+
+        众理信息
         <!-- 当侧边栏卷起来的时候，切换仅有J字母的图标 -->
-        <img src="@/assets/logo-j.svg" alt="jeequan">
-        <!-- 在这里可以添加title，我们以图片的方式替代文字 -->
-        <img v-show="!collapsed" src="@/assets/svg/jeepay.svg" alt="jeepay" style="width:90px;margin: 5px 0 0 5px">
+<!--        <img src="@/assets/logo-j.svg" alt="jeequan">-->
+<!--        &lt;!&ndash; 在这里可以添加title，我们以图片的方式替代文字 &ndash;&gt;-->
+<!--        <img v-show="!collapsed" src="@/assets/svg/jeepay.svg" alt="jeepay" style="width:90px;margin: 5px 0 0 5px">-->
       </div>
     </template>
     <!-- 1.0.0+ 版本 pro-layout 提供 API,

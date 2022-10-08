@@ -8,8 +8,11 @@
           <!-- <p style="margin-top:9px;margin-right:10px;"></p> -->
           <a-form-item label="" class="table-head-layout">
             <a-select v-model="appId" @change="changeAppId" style="width:300px">
-              <a-select-option key="" >应用APPID</a-select-option>
-              <a-select-option v-for="(item) in mchAppList" :key="item.appId" >{{ item.appName }} [{{ item.appId }}]</a-select-option>
+              <a-select-option key="">应用APPID</a-select-option>
+              <a-select-option v-for="(item) in mchAppList" :key="item.appId">{{ item.appName }} [{{
+                item.appId
+              }}]
+              </a-select-option>
             </a-select>
           </a-form-item>
         </div>
@@ -23,70 +26,115 @@
       <!-- 支付测试面板 v-if=""-->
       <div style="width: 100%;" class="paydemo" v-if="payTestShow()">
         <div class="paydemo-type-content">
-          <div class="paydemo-type-name article-title" v-show="showTitle('WX')" >微信支付</div>
+          <div class="paydemo-type-name article-title" v-show="showTitle('WX')">微信支付</div>
           <div class="paydemo-type-body">
 
-            <div class="paydemo-type color-change" v-show="appPaywayList.indexOf('WX_NATIVE') >= 0" @click="changeCurrentWayCode('WX_NATIVE', 'codeImgUrl')" :class="{this:(currentWayCode === 'WX_NATIVE')}">
-              <img src="@/assets/payTestImg/wx_native.svg" class="paydemo-type-img"><span class="color-change">微信二维码</span>
+            <div
+              class="paydemo-type color-change"
+              v-show="appPaywayList.indexOf('WX_NATIVE') >= 0"
+              @click="changeCurrentWayCode('WX_NATIVE', 'codeImgUrl')"
+              :class="{this:(currentWayCode === 'WX_NATIVE')}">
+              <img src="@/assets/payTestImg/wx_native.svg" class="paydemo-type-img"><span
+                class="color-change">微信二维码</span>
             </div>
 
-            <div class="paydemo-type color-change" v-show="appPaywayList.indexOf('WX_BAR') >= 0" @click="changeCurrentWayCode('WX_BAR', '')" :class="{this:(currentWayCode === 'WX_BAR')}">
-              <img src="@/assets/payTestImg/wx_bar.svg" class="paydemo-type-img"><span class="color-change">微信条码</span>
+            <div
+              class="paydemo-type color-change"
+              v-show="appPaywayList.indexOf('WX_BAR') >= 0"
+              @click="changeCurrentWayCode('WX_BAR', '')"
+              :class="{this:(currentWayCode === 'WX_BAR')}">
+              <img src="@/assets/payTestImg/wx_bar.svg" class="paydemo-type-img"><span
+                class="color-change">微信条码</span>
             </div>
 
-            <div class="paydemo-type color-change" v-show="appPaywayList.indexOf('WX_JSAPI') >= 0" @click="changeCurrentWayCode('WX_JSAPI', 'codeImgUrl')" :class="{this:(currentWayCode === 'WX_JSAPI')}">
-              <img src="@/assets/payTestImg/wx_jsapi.svg" class="paydemo-type-img"><span class="color-change">公众号/小程序</span>
+            <div
+              class="paydemo-type color-change"
+              v-show="appPaywayList.indexOf('WX_JSAPI') >= 0"
+              @click="changeCurrentWayCode('WX_JSAPI', 'codeImgUrl')"
+              :class="{this:(currentWayCode === 'WX_JSAPI')}">
+              <img src="@/assets/payTestImg/wx_jsapi.svg" class="paydemo-type-img"><span
+                class="color-change">公众号/小程序</span>
             </div>
 
-            <div class="paydemo-type-h5" v-show="appPaywayList.indexOf('WX_H5') >= 0" @click="changeCurrentWayCode('WX_H5', 'payurl')" :class="{this:(currentWayCode === 'WX_H5')}">
+            <div
+              class="paydemo-type-h5"
+              v-show="appPaywayList.indexOf('WX_H5') >= 0"
+              @click="changeCurrentWayCode('WX_H5', 'payurl')"
+              :class="{this:(currentWayCode === 'WX_H5')}">
               <img src="@/assets/payTestImg/wx_h5.svg" class="paydemo-type-img"><span class="color-change">微信H5</span>
             </div>
 
           </div>
 
-          <div class="paydemo-type-name article-title" v-show="showTitle('ALI')">支付宝支付</div>
+          <div class="paydemo-type-name article-title" v-show="showTitle('ALI')">支付宝(国际)支付</div>
           <div class="paydemo-type-body">
-            <div class="paydemo-type color-change" v-show="appPaywayList.indexOf('ALI_QR') >= 0" @click="changeCurrentWayCode('ALI_QR', 'codeImgUrl')" :class="{this:(currentWayCode === 'ALI_QR')}">
-              <img src="@/assets/payTestImg/ali_qr.svg" class="paydemo-type-img"><span class="color-change">支付宝二维码</span>
+            <!--            <div-->
+            <!--              class="paydemo-type color-change"-->
+            <!--              v-show="appPaywayList.indexOf('ALI_GLOBAL_APP') >= 0"-->
+            <!--              @click="changeCurrentWayCode('ALI_GLOBAL_APP', 'codeImgUrl')"-->
+            <!--              :class="{this:(currentWayCode === 'ALI_GLOBAL_APP')}">-->
+            <!--              <img src="@/assets/payTestImg/ali_jsapi.svg" class="paydemo-type-img"><span-->
+            <!--                class="color-change">支付宝APP支付</span>-->
+            <!--            </div>-->
+
+            <div
+              class="paydemo-type color-change"
+              v-show="appPaywayList.indexOf('ALI_GLOBAL_WAP') >= 0"
+              @click="changeCurrentWayCode('ALI_GLOBAL_WAP', 'codeImgUrl')"
+              :class="{this:(currentWayCode === 'ALI_GLOBAL_WAP')}">
+              <img src="@/assets/payTestImg/ali_jsapi.svg" class="paydemo-type-img"><span
+                class="color-change">支付宝WAP支付</span>
             </div>
 
-            <div class="paydemo-type color-change" v-show="appPaywayList.indexOf('ALI_BAR') >= 0" @click="changeCurrentWayCode('ALI_BAR', '')" :class="{this:(currentWayCode === 'ALI_BAR')}">
-              <img src="@/assets/payTestImg/ali_bar.svg" class="paydemo-type-img"><span class="color-change">支付宝条码</span>
-            </div>
-
-            <div class="paydemo-type color-change" v-show="appPaywayList.indexOf('ALI_JSAPI') >= 0" @click="changeCurrentWayCode('ALI_JSAPI', 'codeImgUrl')" :class="{this:(currentWayCode === 'ALI_JSAPI')}">
-              <img src="@/assets/payTestImg/ali_jsapi.svg" class="paydemo-type-img"><span class="color-change">支付宝生活号</span>
-            </div>
-
-            <div class="paydemo-type color-change" v-show="appPaywayList.indexOf('ALI_PC') >= 0" @click="changeCurrentWayCode('ALI_PC', 'payurl')" :class="{this:(currentWayCode === 'ALI_PC')}">
-              <img src="@/assets/payTestImg/ali_pc.svg" class="paydemo-type-img"><span class="color-change">支付宝PC网站</span>
-            </div>
-
-            <div>
-              <div class="paydemo-type-h5" v-show="appPaywayList.indexOf('ALI_WAP') >= 0" @click="changeCurrentWayCode('ALI_WAP', 'payurl')" :class="{this:(currentWayCode === 'ALI_WAP')}">
-                <img src="@/assets/payTestImg/ali_wap.svg" class="paydemo-type-img"><span class="color-change">支付宝WAP</span>
-              </div>
+            <div
+              class="paydemo-type color-change"
+              v-show="appPaywayList.indexOf('ALI_GLOBAL_PAY_CODE') >= 0"
+              @click="changeCurrentWayCode('ALI_GLOBAL_PAY_CODE', 'codeImgUrl')"
+              :class="{this:(currentWayCode === 'ALI_GLOBAL_PAY_CODE')}">
+              <img src="@/assets/payTestImg/ali_jsapi.svg" class="paydemo-type-img"><span
+                class="color-change">支付宝付款码支付</span>
             </div>
           </div>
-
           <div class="paydemo-type-name article-title" v-show="showQtTitle()">其它支付</div>
           <div class="paydemo-type-body">
-            <div class="paydemo-type color-change" v-show="appPaywayList.indexOf('WX_JSAPI') >= 0 || appPaywayList.indexOf('ALI_JSAPI') >= 0" @click="changeCurrentWayCode('QR_CASHIER', 'codeImgUrl')" :class="{this:(currentWayCode === 'QR_CASHIER')}">
-              <img src="@/assets/payTestImg/qr_cashier.svg" class="paydemo-type-img"><span class="color-change">聚合主扫</span>
+            <div
+              class="paydemo-type color-change"
+              v-show="appPaywayList.indexOf('WX_JSAPI') >= 0 || appPaywayList.indexOf('ALI_JSAPI') >= 0"
+              @click="changeCurrentWayCode('QR_CASHIER', 'codeImgUrl')"
+              :class="{this:(currentWayCode === 'QR_CASHIER')}">
+              <img src="@/assets/payTestImg/qr_cashier.svg" class="paydemo-type-img"><span
+                class="color-change">聚合主扫</span>
             </div>
 
-            <div class="paydemo-type color-change" v-show="appPaywayList.indexOf('WX_BAR') >= 0 || appPaywayList.indexOf('ALI_BAR') >= 0" @click="changeCurrentWayCode('AUTO_BAR', 'codeImgUrl')" :class="{this:(currentWayCode === 'AUTO_BAR')}">
-              <img src="@/assets/payTestImg/auto_bar.svg" class="paydemo-type-img"><span class="color-change">聚合被扫</span>
+            <div
+                class="paydemo-type color-change"
+                @click="changeCurrentWayCode('WEB_CASHIER', 'codeImgUrl')"
+                :class="{this:(currentWayCode === 'WEB_CASHIER')}">
+              <img src="@/assets/payTestImg/qr_cashier.svg" class="paydemo-type-img"><span
+                class="color-change">WEB收银台</span>
             </div>
 
-            <div class="paydemo-type color-change" v-show="appPaywayList.indexOf('PP_PC') >= 0" @click="changeCurrentWayCode('PP_PC', 'payurl')" :class="{this:(currentWayCode === 'PP_PC')}">
-              <img src="@/assets/payTestImg/pp_pc.svg" class="paydemo-type-img"><span class="color-change">PayPal支付</span>
+            <div
+              class="paydemo-type color-change"
+              v-show="appPaywayList.indexOf('WX_BAR') >= 0 || appPaywayList.indexOf('ALI_BAR') >= 0"
+              @click="changeCurrentWayCode('AUTO_BAR', 'codeImgUrl')"
+              :class="{this:(currentWayCode === 'AUTO_BAR')}">
+              <img src="@/assets/payTestImg/auto_bar.svg" class="paydemo-type-img"><span
+                class="color-change">聚合被扫</span>
             </div>
 
+            <div
+              class="paydemo-type color-change"
+              v-show="appPaywayList.indexOf('PP_PC') >= 0"
+              @click="changeCurrentWayCode('PP_PC', 'payurl')"
+              :class="{this:(currentWayCode === 'PP_PC')}">
+              <img src="@/assets/payTestImg/pp_pc.svg" class="paydemo-type-img"><span
+                class="color-change">PayPal支付</span>
+            </div>
           </div>
         </div>
 
-        <a-divider ></a-divider>
+        <a-divider></a-divider>
         <!-- 订单信息 -->
         <div class="paydemo-type-content">
           <div class="paydemo-type-name article-title">支付信息</div>
@@ -111,7 +159,7 @@
               </a-radio-group>
             </div>
 
-            <a-divider ></a-divider>
+            <a-divider></a-divider>
 
             <div class="paydemo-form-item">
               <span>支付金额(元)：</span>
@@ -140,17 +188,23 @@
 
             <div style="margin-top:20px;text-align: left">
               <!-- <span style="color: #FD482C;font-size: 18px;padding-right: 10px;" id="amountShow">{{ paytestAmount }}</span> -->
-              <a-button @click="immediatelyPay" style="padding:5px 20px;background-color: #1953ff;border-radius: 5px;color:#fff">立即支付</a-button>
+              <a-button
+                @click="immediatelyPay"
+                style="padding:5px 20px;background-color: #1953ff;border-radius: 5px;color:#fff">立即支付
+              </a-button>
             </div>
           </form>
         </div>
       </div>
     </a-card>
     <!-- 二维码弹窗 -->
-    <pay-test-modal ref="payTestModal" @closeBarCode="$refs.payTestBarCode.visible = false" ></pay-test-modal>
+    <pay-test-modal ref="payTestModal" @closeBarCode="$refs.payTestBarCode.visible = false"></pay-test-modal>
 
     <!-- 条码弹框 -->
-    <pay-test-bar-code ref="payTestBarCode" @barCodeValue="barCodeChange" @CodeAgainChange="testCodeChange"></pay-test-bar-code>
+    <pay-test-bar-code
+      ref="payTestBarCode"
+      @barCodeValue="barCodeChange"
+      @CodeAgainChange="testCodeChange"></pay-test-bar-code>
   </div>
 </template>
 
@@ -225,7 +279,7 @@ export default {
 
     // 刷新订单号
     randomOrderNo () {
-       this.mchOrderNo = 'M' + new Date().getTime() + Math.floor(Math.random() * (9999 - 1000) + 1000)
+      this.mchOrderNo = 'M' + new Date().getTime() + Math.floor(Math.random() * (9999 - 1000) + 1000)
     },
 
     // 获取条码的值
@@ -269,21 +323,22 @@ export default {
 
       // 判断是否为条码支付
       if (!this.$refs.payTestBarCode.getVisible() && (this.currentWayCode === 'WX_BAR' || this.currentWayCode === 'ALI_BAR' || this.currentWayCode === 'AUTO_BAR')) {
-          this.$refs.payTestBarCode.showModal()
-          return
+        this.$refs.payTestBarCode.showModal()
+        return
       }
 
       const that = this
       payTestOrder({
         // jsapi 默认使用聚合二维码支付
         wayCode: (this.currentWayCode === 'WX_JSAPI' || this.currentWayCode === 'ALI_JSAPI') ? 'QR_CASHIER' : this.currentWayCode, // 支付方式
-        amount: this.paytestAmount, // 支付金额
+        amount: this.paytestAmount * 100, // 支付金额
         appId: this.appId, // appId
         mchOrderNo: this.mchOrderNo, // 订单编号
         payDataType: this.currentPayDataType, // 支付参数（二维码，条码）
         authCode: this.authCode,
         divisionMode: this.divisionMode,
-        orderTitle: this.orderTitle
+        orderTitle: this.orderTitle,
+        currency: 'CNY'
       }).then(res => {
         that.$refs.payTestModal.showModal(this.currentWayCode, res) // 打开弹窗
         that.randomOrderNo() // 刷新订单号
@@ -295,19 +350,19 @@ export default {
 
     // 此处判断，微信，支付宝，聚合码，哪种支付方式一个都没配置，如果未配置，则不显示该板块，若等于-1 则表示不存在
     showTitle (parameterA) {
-        if (this.appPaywayList.toString().indexOf(parameterA) === -1) {
-          return false
-        } else {
-          return true
-        }
+      if (this.appPaywayList.toString().indexOf(parameterA) === -1) {
+        return false
+      } else {
+        return true
+      }
     },
     // 聚合支付标题显示
     showQtTitle () {
       if (this.appPaywayList.toString().indexOf('WX') !== -1 || this.appPaywayList.toString().indexOf('ALI') !== -1 || this.appPaywayList.toString().indexOf('PP_PC') !== -1) {
-          return true
-        } else {
-          return false
-        }
+        return true
+      } else {
+        return false
+      }
     },
 
     // 自定义金额输入框是否展示
@@ -332,5 +387,5 @@ export default {
 </script>
 
 <style scoped lang="css">
-  @import './payTest.css';
+@import './payTest.css';
 </style>
