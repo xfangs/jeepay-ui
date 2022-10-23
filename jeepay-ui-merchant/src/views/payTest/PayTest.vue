@@ -86,15 +86,31 @@
                 class="color-change">支付宝WAP支付</span>
             </div>
 
+          </div>
+
+          <div class="paydemo-type-name article-title" v-show="showTitle('WX_GLOBAL')">微信(国际)支付</div>
+
+          <div class="paydemo-type-body">
+            <!--            <div-->
+            <!--              class="paydemo-type color-change"-->
+            <!--              v-show="appPaywayList.indexOf('ALI_GLOBAL_APP') >= 0"-->
+            <!--              @click="changeCurrentWayCode('ALI_GLOBAL_APP', 'codeImgUrl')"-->
+            <!--              :class="{this:(currentWayCode === 'ALI_GLOBAL_APP')}">-->
+            <!--              <img src="@/assets/payTestImg/ali_jsapi.svg" class="paydemo-type-img"><span-->
+            <!--                class="color-change">支付宝APP支付</span>-->
+            <!--            </div>-->
+
             <div
               class="paydemo-type color-change"
-              v-show="appPaywayList.indexOf('ALI_GLOBAL_PAY_CODE') >= 0"
-              @click="changeCurrentWayCode('ALI_GLOBAL_PAY_CODE', 'codeImgUrl')"
-              :class="{this:(currentWayCode === 'ALI_GLOBAL_PAY_CODE')}">
-              <img src="@/assets/payTestImg/ali_jsapi.svg" class="paydemo-type-img"><span
-                class="color-change">支付宝付款码支付</span>
+              v-show="appPaywayList.indexOf('WX_GLOBAL_NATIVE') >= 0"
+              @click="changeCurrentWayCode('WX_GLOBAL_NATIVE', 'codeImgUrl')"
+              :class="{this:(currentWayCode === 'WX_GLOBAL_NATIVE')}">
+              <img src="@/assets/payTestImg/wx_native.svg" class="paydemo-type-img"><span
+                class="color-change">扫码支付</span>
             </div>
+
           </div>
+
           <div class="paydemo-type-name article-title" v-show="showQtTitle()">其它支付</div>
           <div class="paydemo-type-body">
             <div
@@ -107,9 +123,9 @@
             </div>
 
             <div
-                class="paydemo-type color-change"
-                @click="changeCurrentWayCode('WEB_CASHIER', 'codeImgUrl')"
-                :class="{this:(currentWayCode === 'WEB_CASHIER')}">
+              class="paydemo-type color-change"
+              @click="changeCurrentWayCode('WEB_CASHIER', 'codeImgUrl')"
+              :class="{this:(currentWayCode === 'WEB_CASHIER')}">
               <img src="@/assets/payTestImg/qr_cashier.svg" class="paydemo-type-img"><span
                 class="color-change">WEB收银台</span>
             </div>
@@ -149,6 +165,11 @@
             </div>
 
             <div class="paydemo-form-item">
+              <label>货币：</label>
+              <a-input v-model="currency" style="width: 200px"/>
+            </div>
+
+            <div class="paydemo-form-item">
               <label>分账方式：</label>
               <a-radio-group v-model="divisionMode" style="display:flex">
                 <div style="display:flex">
@@ -164,13 +185,13 @@
             <div class="paydemo-form-item">
               <span>支付金额(元)：</span>
 
-              <a-radio-group name="radioGroup" :default-value="0.01" style="display:flex">
+              <a-radio-group name="radioGroup" :default-value="1" style="display:flex">
                 <div @click="amountInput=false" style="display:flex">
-                  <a-radio :value="0.01" @click="paytestAmount=0.01">￥0.01</a-radio>
-                  <a-radio :value="0.15" @click="paytestAmount=0.15">￥0.15</a-radio>
-                  <a-radio :value="0.21" @click="paytestAmount=0.21">￥0.21</a-radio>
-                  <a-radio :value="0.29" @click="paytestAmount=0.29">￥0.29</a-radio>
-                  <a-radio :value="0.64" @click="paytestAmount=0.64">￥0.64</a-radio>
+                  <a-radio :value="1" @click="paytestAmount=1">￥1.00</a-radio>
+                  <a-radio :value="2" @click="paytestAmount=2">￥2.00</a-radio>
+                  <a-radio :value="3" @click="paytestAmount=3">￥3.00</a-radio>
+                  <a-radio :value="4" @click="paytestAmount=4">￥4.00</a-radio>
+                  <a-radio :value="5" @click="paytestAmount=5">￥5.00</a-radio>
                 </div>
                 <a-radio @click="amountInputShow">
                   <span style="margin-right:3px">自定义金额</span>
@@ -224,11 +245,12 @@ export default {
       currentPayDataType: '', // 支付参数
       mchOrderNo: '', // 模拟商户订单号
       authCode: '', // 条码的值
-      paytestAmount: '0.01', // 支付金额，默认为0.01
+      paytestAmount: '1', // 支付金额，默认为0.01
       amountInput: false, // 自定金额输入框是否展示
       noConfigText: false, // 尚无任何配置分割线提示文字
       divisionMode: 0, // 订单分账模式
-      orderTitle: '接口调试' // 订单标题
+      orderTitle: '接口调试', // 订单标题
+      currency: 'SGD'
     }
   },
 
@@ -331,14 +353,14 @@ export default {
       payTestOrder({
         // jsapi 默认使用聚合二维码支付
         wayCode: (this.currentWayCode === 'WX_JSAPI' || this.currentWayCode === 'ALI_JSAPI') ? 'QR_CASHIER' : this.currentWayCode, // 支付方式
-        amount: this.paytestAmount * 100, // 支付金额
+        amount: this.paytestAmount, // 支付金额
         appId: this.appId, // appId
         mchOrderNo: this.mchOrderNo, // 订单编号
         payDataType: this.currentPayDataType, // 支付参数（二维码，条码）
         authCode: this.authCode,
         divisionMode: this.divisionMode,
         orderTitle: this.orderTitle,
-        currency: 'CNY'
+        currency: this.currency
       }).then(res => {
         that.$refs.payTestModal.showModal(this.currentWayCode, res) // 打开弹窗
         that.randomOrderNo() // 刷新订单号

@@ -16,12 +16,11 @@
     -->
     <template v-slot:menuHeaderRender>
       <div>
-
-        众理信息
         <!-- 当侧边栏卷起来的时候，切换仅有J字母的图标 -->
-<!--        <img src="@/assets/logo-j.svg" alt="jeequan">-->
-<!--        &lt;!&ndash; 在这里可以添加title，我们以图片的方式替代文字 &ndash;&gt;-->
-<!--        <img v-show="!collapsed" src="@/assets/svg/jeepay.svg" alt="jeepay" style="width:90px;margin: 5px 0 0 5px">-->
+        <img src="/imgs/logo.png">
+        <span v-show="!collapsed" style="width:90px;margin: 5px 0 0 5px">
+          CCPay
+        </span>
       </div>
     </template>
     <!-- 1.0.0+ 版本 pro-layout 提供 API,
@@ -30,18 +29,17 @@
     <template v-slot:headerContentRender>
       <div class="ant-pro-global-header-trigger" @click="routeReload()">
         <a-tooltip title="刷新页面">
-          <a-icon type="reload" style="font-size: 18px;cursor: pointer;" />
+          <a-icon type="reload" style="font-size: 18px;cursor: pointer;"/>
         </a-tooltip>
       </div>
     </template>
 
     <template v-slot:rightContentRender>
-      <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
-      <a  style="color: red; float: right" href="https://www.jeequan.com/product/jeepay4plus.html" target="_blank">一起体验Plus商业版</a>
+      <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme"/>
     </template>
     <!-- custom footer / 自定义Footer -->
     <template v-slot:footerRender>
-      <global-footer />
+      <global-footer/>
     </template>
     <router-view v-if="isRouterAlive"/>
   </pro-layout>
@@ -151,7 +149,9 @@ export default {
     },
     routeReload () { // 刷新页面函数
       this.isRouterAlive = false
-      this.$nextTick(() => { this.isRouterAlive = true })
+      this.$nextTick(() => {
+        this.isRouterAlive = true
+      })
     }
   }
 }
