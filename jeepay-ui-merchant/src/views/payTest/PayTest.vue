@@ -108,6 +108,14 @@
               <img src="@/assets/payTestImg/wx_native.svg" class="paydemo-type-img"><span
                 class="color-change">扫码支付</span>
             </div>
+            <div
+              class="paydemo-type color-change"
+              v-show="appPaywayList.indexOf('WX_GLOBAL_JSAPI') >= 0"
+              @click="changeCurrentWayCode('WX_GLOBAL_JSAPI', 'codeImgUrl')"
+              :class="{this:(currentWayCode === 'WX_GLOBAL_JSAPI')}">
+              <img src="@/assets/payTestImg/wx_native.svg" class="paydemo-type-img"><span
+                class="color-change">JSAPI支付</span>
+            </div>
 
           </div>
 
@@ -169,6 +177,10 @@
               <a-input v-model="currency" style="width: 200px"/>
             </div>
 
+            <div class="paydemo-form-item">
+              <label>openId：</label>
+              <a-input v-model="openId" style="width: 200px"/>
+            </div>
             <div class="paydemo-form-item">
               <label>分账方式：</label>
               <a-radio-group v-model="divisionMode" style="display:flex">
@@ -250,7 +262,8 @@ export default {
       noConfigText: false, // 尚无任何配置分割线提示文字
       divisionMode: 0, // 订单分账模式
       orderTitle: '接口调试', // 订单标题
-      currency: 'SGD'
+      currency: 'SGD',
+      openId: null
     }
   },
 
@@ -360,7 +373,8 @@ export default {
         authCode: this.authCode,
         divisionMode: this.divisionMode,
         orderTitle: this.orderTitle,
-        currency: this.currency
+        currency: this.currency,
+        openId: this.openId
       }).then(res => {
         that.$refs.payTestModal.showModal(this.currentWayCode, res) // 打开弹窗
         that.randomOrderNo() // 刷新订单号

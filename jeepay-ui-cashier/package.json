@@ -1,32 +1,35 @@
 {
-  "name": "jeepay-ui-cashier",
-  "version": "1.10.0",
+  "name": "test",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "build:test": "vue-cli-service build --mode test",
+    "serve": "vue-cli-service serve --mode dev",
+    "build": "vue-cli-service build --mode prod",
+    "build-test": "vue-cli-service build --mode test",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "amfe-flexible": "^2.2.1",
-    "axios": "^0.19.0",
-    "core-js": "^3.6.5",
-    "lib-flexible": "^0.3.2",
-    "postcss-px2rem": "^0.3.0",
-    "px2rem-loader": "^0.1.9",
-    "vue": "^2.6.11",
-    "vue-router": "^3.2.0"
+    "@ony3000/base64-converter": "^1.2.0",
+    "axios": "^0.27.2",
+    "core-js": "^3.8.3",
+    "store": "^2.0.12",
+    "tyro-util": "^2.5.3",
+    "vant": "^2.12.50",
+    "vue": "^2.6.14",
+    "vue-i18n": "^8.15.1",
+    "vue-router": "^3.5.3"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-router": "^4.5.13",
-    "@vue/cli-service": "~4.5.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "node-sass": "7.0.3",
+    "sass-loader": "13.0.2",
+    "vue-template-compiler": "^2.6.14"
   },
   "eslintConfig": {
     "root": true,
@@ -38,7 +41,7 @@
       "eslint:recommended"
     ],
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "@babel/eslint-parser"
     },
     "rules": {}
   },
