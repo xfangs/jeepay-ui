@@ -36,28 +36,28 @@
         </a-input-password>
       </a-form-item>
 
-      <div class="code">
-        <a-form-item>
-          <a-input
-            @focus="vercodeIcon = require('@/assets/svg/select-code.svg')"
-            @blur="vercodeIcon = require('@/assets/svg/code.svg')"
-            class="code-input"
-            size="large"
-            type="text"
-            placeholder="请输入人机验证码"
-            v-decorator="[
-              'usercode',
-              {rules: [{ required: true, message: '请输入人机验证码' }], validateTrigger: 'blur'}
-            ]"
-          >
-            <img :src="vercodeIcon" slot="prefix" class="user" alt="user" />
-          </a-input>
-        </a-form-item>
-        <div class="code-img" style="position: relative;background:#ddd">
-          <img v-show="vercodeImgSrc" :src="vercodeImgSrc" @click="refVercode()"/>
-          <div class="vercode-mask" v-show="isOverdue" @click="refVercode()">已过期 请刷新</div>
-        </div>
-      </div>
+<!--      <div class="code">-->
+<!--        <a-form-item>-->
+<!--          <a-input-->
+<!--            @focus="vercodeIcon = require('@/assets/svg/select-code.svg')"-->
+<!--            @blur="vercodeIcon = require('@/assets/svg/code.svg')"-->
+<!--            class="code-input"-->
+<!--            size="large"-->
+<!--            type="text"-->
+<!--            placeholder="请输入人机验证码"-->
+<!--            v-decorator="[-->
+<!--              'usercode',-->
+<!--              {rules: [{ required: true, message: '请输入人机验证码' }], validateTrigger: 'blur'}-->
+<!--            ]"-->
+<!--          >-->
+<!--            <img :src="vercodeIcon" slot="prefix" class="user" alt="user" />-->
+<!--          </a-input>-->
+<!--        </a-form-item>-->
+<!--        <div class="code-img" style="position: relative;background:#ddd">-->
+<!--          <img v-show="vercodeImgSrc" :src="vercodeImgSrc" @click="refVercode()"/>-->
+<!--          <div class="vercode-mask" v-show="isOverdue" @click="refVercode()">已过期 请刷新</div>-->
+<!--        </div>-->
+<!--      </div>-->
 
       <a-form-item>
         <!-- 自动登录 -->

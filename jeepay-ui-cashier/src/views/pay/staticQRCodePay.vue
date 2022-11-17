@@ -54,6 +54,8 @@ export default {
 
         location.href = this.$baseUrl + '/weixin/authorize?service=' + base64Encode(location.href)
       }
+    } else if (version.alipay) {
+      this.browserType = 2;
     }
   },
   mounted() {
@@ -65,7 +67,7 @@ export default {
       if (this.browserType === 1) {
 
         const query = {
-          "amount": this.amount*100,
+          "amount": this.amount * 100,
           "mchNo": this.$route.params.mchNo,
           "subject": "静态码支付",
           "wayCode": "WX_GLOBAL_JSAPI",
@@ -88,6 +90,22 @@ export default {
               }
             });
 
+
+      } else if (this.browserType === 2) {
+
+
+        const query = {
+          "amount": this.amount * 100,
+          "mchNo": this.$route.params.mchNo,
+          "subject": "静态码支付",
+          "wayCode": "WX_GLOBAL_JSAPI",
+          "body": "静态码支付",
+          "version": "1.0",
+          "currency": "SGD",
+          "divisionMode": 1
+        }
+
+        const {data} = await this.$api.post('/api/pay/createOrder', query)
 
       }
     }

@@ -66,16 +66,16 @@
 
           </div>
 
-          <div class="paydemo-type-name article-title" v-show="showTitle('ALI')">支付宝(国际)支付</div>
+          <div class="paydemo-type-name article-title" v-show="showTitle('ALI_GLOBAL')">支付宝(国际)支付</div>
           <div class="paydemo-type-body">
-            <!--            <div-->
-            <!--              class="paydemo-type color-change"-->
-            <!--              v-show="appPaywayList.indexOf('ALI_GLOBAL_APP') >= 0"-->
-            <!--              @click="changeCurrentWayCode('ALI_GLOBAL_APP', 'codeImgUrl')"-->
-            <!--              :class="{this:(currentWayCode === 'ALI_GLOBAL_APP')}">-->
-            <!--              <img src="@/assets/payTestImg/ali_jsapi.svg" class="paydemo-type-img"><span-->
-            <!--                class="color-change">支付宝APP支付</span>-->
-            <!--            </div>-->
+            <div
+              class="paydemo-type color-change"
+              v-show="appPaywayList.indexOf('ALI_GLOBAL_APP') >= 0"
+              @click="changeCurrentWayCode('ALI_GLOBAL_APP', 'codeImgUrl')"
+              :class="{this:(currentWayCode === 'ALI_GLOBAL_APP')}">
+              <img src="@/assets/payTestImg/ali_jsapi.svg" class="paydemo-type-img"><span
+                class="color-change">支付宝APP支付</span>
+            </div>
 
             <div
               class="paydemo-type color-change"
@@ -84,6 +84,15 @@
               :class="{this:(currentWayCode === 'ALI_GLOBAL_WAP')}">
               <img src="@/assets/payTestImg/ali_jsapi.svg" class="paydemo-type-img"><span
                 class="color-change">支付宝WAP支付</span>
+            </div>
+
+            <div
+              class="paydemo-type color-change"
+              v-show="appPaywayList.indexOf('ALI_GLOBAL_WEB') >= 0"
+              @click="changeCurrentWayCode('ALI_GLOBAL_WEB', 'codeImgUrl')"
+              :class="{this:(currentWayCode === 'ALI_GLOBAL_WEB')}">
+              <img src="@/assets/payTestImg/ali_jsapi.svg" class="paydemo-type-img"><span
+                class="color-change">支付宝WEB支付</span>
             </div>
 
           </div>
@@ -181,6 +190,12 @@
               <label>openId：</label>
               <a-input v-model="openId" style="width: 200px"/>
             </div>
+
+            <div class="paydemo-form-item">
+              <label>osType：</label>
+              <a-input v-model="osType" style="width: 200px"/>
+            </div>
+
             <div class="paydemo-form-item">
               <label>分账方式：</label>
               <a-radio-group v-model="divisionMode" style="display:flex">
@@ -263,7 +278,8 @@ export default {
       divisionMode: 0, // 订单分账模式
       orderTitle: '接口调试', // 订单标题
       currency: 'SGD',
-      openId: null
+      openId: null,
+      osType: null
     }
   },
 
@@ -374,7 +390,8 @@ export default {
         divisionMode: this.divisionMode,
         orderTitle: this.orderTitle,
         currency: this.currency,
-        openId: this.openId
+        openId: this.openId,
+        osType: this.osType
       }).then(res => {
         that.$refs.payTestModal.showModal(this.currentWayCode, res) // 打开弹窗
         that.randomOrderNo() // 刷新订单号

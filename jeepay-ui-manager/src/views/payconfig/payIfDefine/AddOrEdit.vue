@@ -11,12 +11,12 @@
       <a-row :gutter="16">
         <a-col :span="12">
           <a-form-model-item label="接口代码" prop="ifCode">
-            <a-input v-model="saveObject.ifCode" placeholder="请输入" :disabled="!isAdd" />
+            <a-input v-model="saveObject.ifCode" placeholder="请输入" :disabled="!isAdd"/>
           </a-form-model-item>
         </a-col>
         <a-col :span="12">
           <a-form-model-item label="接口名称" prop="ifName">
-            <a-input v-model="saveObject.ifName" placeholder="请输入" />
+            <a-input v-model="saveObject.ifName" placeholder="请输入"/>
           </a-form-model-item>
         </a-col>
         <a-col :span="12">
@@ -57,17 +57,17 @@
         </a-col>
         <a-col :span="24" v-if="saveObject.isIsvMode == 1 && this.saveObject.configPageType === 1">
           <a-form-model-item label="服务商接口配置定义描述" prop="isvParams">
-            <a-input v-model="saveObject.isvParams" placeholder="请输入" type="textarea" />
+            <a-input v-model="saveObject.isvParams" placeholder="请输入" type="textarea"/>
           </a-form-model-item>
         </a-col>
         <a-col :span="24" v-if="saveObject.isIsvMode == 1 && this.saveObject.configPageType === 1">
           <a-form-model-item label="特约商户接口配置定义描述" prop="isvsubMchParams">
-            <a-input v-model="saveObject.isvsubMchParams" placeholder="请输入" type="textarea" />
+            <a-input v-model="saveObject.isvsubMchParams" placeholder="请输入" type="textarea"/>
           </a-form-model-item>
         </a-col>
         <a-col :span="24" v-if="saveObject.isMchMode == 1 && this.saveObject.configPageType === 1">
           <a-form-model-item label="普通商户接口配置定义描述" prop="normalMchParams">
-            <a-input v-model="saveObject.normalMchParams" placeholder="请输入" type="textarea" />
+            <a-input v-model="saveObject.normalMchParams" placeholder="请输入" type="textarea"/>
           </a-form-model-item>
         </a-col>
         <a-col :span="12">
@@ -84,14 +84,33 @@
         </a-col>
         <a-col :span="12">
           <a-form-model-item label="备注" prop="remark">
-            <a-input v-model="saveObject.remark" placeholder="请输入" />
+            <a-input v-model="saveObject.remark" placeholder="请输入"/>
           </a-form-model-item>
         </a-col>
         <a-col :span="24">
           <a-form-model-item label="支持的支付方式" prop="checkedList">
-            <a-checkbox-group v-model="checkedList" :options="wayCodesOptions" @change="onWayCodesChange" />
+            <a-checkbox-group v-model="checkedList" :options="wayCodesOptions" @change="onWayCodesChange"/>
           </a-form-model-item>
         </a-col>
+
+        <a-col :span="24">
+          <a-form-model-item label="app端页面展示" prop="icon">
+            <JeepayUpload
+              :action="action"
+              accept=".jpg, .jpeg, .png"
+              @uploadSuccess="saveObject.appIcon = $event"
+            >
+              <template slot="uploadSlot" slot-scope="{loading}">
+                <img :src="saveObject.appIcon" style="width:80px"/>
+                <a-button style="marginLeft:5px;">
+                  <a-icon :type="loading ? 'loading' : 'upload'"/>
+                  {{ loading ? '正在上传' : '点击上传' }}
+                </a-button>
+              </template>
+            </JeepayUpload>
+          </a-form-model-item>
+        </a-col>
+
         <a-col :span="12">
           <a-form-model-item label="页面展示：卡片icon" prop="icon">
             <JeepayUpload
@@ -100,15 +119,18 @@
               @uploadSuccess="uploadSuccess($event, '')"
             >
               <template slot="uploadSlot" slot-scope="{loading}">
-                <img :src="saveObject.icon" style="width:80px" />
-                <a-button style="marginLeft:5px;"> <a-icon :type="loading ? 'loading' : 'upload'" /> {{ loading ? '正在上传' : '点击上传' }} </a-button>
+                <img :src="saveObject.icon" style="width:80px"/>
+                <a-button style="marginLeft:5px;">
+                  <a-icon :type="loading ? 'loading' : 'upload'"/>
+                  {{ loading ? '正在上传' : '点击上传' }}
+                </a-button>
               </template>
             </JeepayUpload>
           </a-form-model-item>
         </a-col>
         <a-col :span="12">
           <a-form-model-item label="页面展示：卡片背景色" prop="bgColor">
-            <a-input v-model="saveObject.bgColor" placeholder="请输入" />
+            <a-input v-model="saveObject.bgColor" placeholder="请输入"/>
           </a-form-model-item>
         </a-col>
       </a-row>
@@ -116,7 +138,7 @@
 
     <div class="drawer-btn-center">
       <a-button @click="onClose" icon="close" :style="{ marginRight: '8px' }">取消</a-button>
-      <a-button type="primary" @click="onSubmit" icon="check" >保存</a-button>
+      <a-button type="primary" @click="onSubmit" icon="check">保存</a-button>
     </div>
 
   </a-drawer>
@@ -184,7 +206,7 @@ export default {
     // 抽屉显示
     show (ifCode) {
       this.isAdd = !ifCode
-       // 数据清空
+      // 数据清空
       this.saveObject = {
         'isMchMode': 1,
         'isIsvMode': 1,
@@ -206,7 +228,7 @@ export default {
           res.wayCodes.forEach(item => {
             newItems.push(item.wayCode)
           })
-           that.checkedList = newItems
+          that.checkedList = newItems
         })
         this.visible = true
       } else {

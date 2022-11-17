@@ -28,7 +28,9 @@
           </div>
         </a-form>
         <div>
-          <a-button v-if="$access('ENT_MCH_INFO_ADD')" type="primary" icon="plus" @click="addFunc" class="mg-b-30">新建</a-button>
+          <a-button v-if="$access('ENT_MCH_INFO_ADD')" type="primary" icon="plus" @click="addFunc" class="mg-b-30">
+            新建
+          </a-button>
         </div>
       </div>
 
@@ -47,18 +49,25 @@
           <a v-if="$access('ENT_MCH_INFO_VIEW')" @click="detailFunc(record.mchNo)">{{ record.mchName }}</a>
         </template> <!-- 自定义插槽 -->
         <template slot="stateSlot" slot-scope="{record}">
-          <a-badge :status="record.state === 0?'error':'processing'" :text="record.state === 0?'禁用':'启用'" />
+          <a-badge :status="record.state === 0?'error':'processing'" :text="record.state === 0?'禁用':'启用'"/>
         </template>
         <template slot="typeSlot" slot-scope="{record}">
           <a-tag :color="record.type === 1 ? 'green' : 'orange'">
-            {{ record.type === 1 ? '普通商户':'特约商户' }}
+            {{ record.type === 1 ? '普通商户' : '特约商户' }}
           </a-tag>
         </template>
         <template slot="opSlot" slot-scope="{record}">  <!-- 操作列插槽 -->
           <JeepayTableColumns>
             <a-button type="link" v-if="$access('ENT_MCH_INFO_EDIT')" @click="editFunc(record.mchNo)">修改</a-button>
-            <a-button type="link" v-if="$access('ENT_MCH_APP_CONFIG')" @click="mchAppConfig(record.mchNo)">应用配置</a-button>
-            <a-button type="link" v-if="$access('ENT_MCH_INFO_DEL')" style="color: red" @click="delFunc(record.mchNo)">删除</a-button>
+            <a-button type="link" v-if="$access('ENT_MCH_APP_CONFIG')" @click="mchAppConfig(record.mchNo)">应用配置
+            </a-button>
+
+            <a-button type="link" @click="$refs.staticQRCode.show(record.mchNo)">静态二维码
+            </a-button>
+
+            <a-button type="link" v-if="$access('ENT_MCH_INFO_DEL')" style="color: red" @click="delFunc(record.mchNo)">
+              删除
+            </a-button>
           </JeepayTableColumns>
         </template>
       </JeepayTable>
@@ -67,6 +76,8 @@
     <InfoAddOrEdit ref="infoAddOrEdit" :callbackFunc="searchFunc"/>
     <!-- 新增页面组件  -->
     <InfoDetail ref="infoDetail" :callbackFunc="searchFunc"/>
+
+    <StaticQRCode ref="staticQRCode"></StaticQRCode>
   </page-header-wrapper>
 </template>
 <script>
@@ -76,6 +87,7 @@ import JeepayTableColumns from '@/components/JeepayTable/JeepayTableColumns'
 import { API_URL_MCH_LIST, req, reqLoad } from '@/api/manage'
 import InfoAddOrEdit from './AddOrEdit'
 import InfoDetail from './Detail'
+import StaticQRCode from './StaticQRCode'
 
 // eslint-disable-next-line no-unused-vars
 const tableColumns = [
@@ -90,7 +102,7 @@ const tableColumns = [
 
 export default {
   name: 'MchListPage',
-  components: { JeepayTable, JeepayTableColumns, InfoAddOrEdit, InfoDetail, JeepayTextUp },
+  components: { JeepayTable, JeepayTableColumns, InfoAddOrEdit, InfoDetail, JeepayTextUp, StaticQRCode },
   data () {
     return {
       btnLoading: false,
